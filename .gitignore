@@ -1,0 +1,16 @@
+# Foundry
+cache/
+out/
+
+# Dependencies
+node_modules/
+lib/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
