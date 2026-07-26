@@ -30,3 +30,14 @@
 
     5.  makeAddr
         根据字符串生成一个确定性地址
+
+5. 部署步骤
+    首先部署GovernnaceToken.sol合约
+    之后部署votes.sol合约，填入GovernnaceToken.sol合约部署地址，以及提案门槛。
+
+6. 测试用例
+    1. 在GovernnaceToken中调用delegate函数，给一个账户投票，提案权限
+    2. 用该获得权限账户，调用votes合约中的createProposal函数，输入提案内容，及投票时间窗口长度
+    3. votes合约中proposal函数，输入提案id :1，可读取新创建的提案内容
+    4. votes合约中，调用castVotes函数，进行投票
+    5. votes合约中finalizeProposal ，进行计票

@@ -174,16 +174,18 @@ contract ProposalVoteTest is Test {
     }
 
     function test_CastVote_RevertVotingEnded() public {
+        uint256 ts = block.timestamp;
+
         vm.prank(alice);
         votes.createProposal("Expired proposal", 1 hours);
 
         // 快进到投票结束后
-        vm.warp(block.timestamp + 2 hours);
+        vm.warp(ts + 2 hours);
 
         vm.prank(alice);
-        // VotingNotActive(proposalId=1, currentTime, startTime, endTime)
-        // 当前时间 > endTime，触发 revert
-        vm.expectRevert(ProposalVote.VotingNotActive.selector);
+        vm.expectRevert(abi.encodeWithSelector(
+            ProposalVote.VotingNotActive.selector, 1, ts + 2 hours, ts, ts + 1 hours
+        ));
         votes.castVote(1, true);
     }
 
